@@ -83,7 +83,14 @@ def process_invoices():
                     saved_pdf = os.path.join(config["SAVE_FOLDER"], att.FileName)
                     att.SaveAsFile(saved_pdf)
 
-                    output_pdf = os.path.join(config["SAVE_FOLDER"], f"merged_{att.FileName}")
+                    base_name = Path(att.FileName).stem
+                    ext = Path(att.FileName).suffix
+                    counter = 1
+                    output_pdf = os.path.join(config["SAVE_FOLDER"], f"merged_{base_name}_{counter}{ext}")
+                    # Увеличиваем индекс, если файл уже существует
+                    while os.path.exists(output_pdf):
+                        counter += 1
+                        output_pdf = os.path.join(config["SAVE_FOLDER"], f"merged_{base_name}_{counter}{ext}")
                     merger = PdfMerger()
                     merger.append(saved_pdf)
                     merger.append(config["QR_PDF"])

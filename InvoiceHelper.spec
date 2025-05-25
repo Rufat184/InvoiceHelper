@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['StartMainUnread.py'],
+    ['StartMain.py'],
     pathex=[],
     binaries=[],
     datas=[],
